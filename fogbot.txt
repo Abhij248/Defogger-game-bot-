@@ -1,0 +1,141 @@
+from take_screenshot import screenshot
+from img_to_gray import input2GRAYSCALE
+from move_cursor import move
+import pyautogui as py
+import time 
+import threading
+import sys
+
+
+
+def defogging(flag):
+    if(flag==1):
+      return 0 
+    count =0
+    time.sleep(1)
+    #1 find scout hangar and move cursor to its location 
+    while(1):
+        #move_in_city()
+        #if(move("explore_imgs\go_back.png")=="found"):
+          # py.click()
+        count = count+1
+        reply = move("explore_imgs\scout_hangar.png")
+        if(reply == "not_found"):
+            reply = move("explore_imgs\scout_hangar1.png") 
+        print(reply)
+        if(reply == "found"):
+            break
+        if(reply =="not_found"):
+            go_back() #searched for both types of hangar images , if not found we either go back or go in city
+            move_in_city()
+            defogging(flag)
+            
+        time.sleep(2)  ## fine
+        #if(count>2 ):
+         #   move_in_city()
+          #  defogging()
+
+    #2 click on scout hangar
+    time.sleep(1)
+    py.click()
+
+    #3 find explore bot icon
+    count =0
+    while(1):
+        count = count+1
+        reply = move("explore_imgs\scout_icon.png")
+        if(reply == "found"):
+            break
+        if(reply =="not_found"):
+            go_back()  #searched for both types of hangar images , if not found we either go back or go in city
+            move_in_city()
+            defogging(flag)
+        time.sleep(2)
+        #if(count>2):
+         #   move_in_city()
+          #  defogging()
+    #4 click on scout icon
+    time.sleep(1)
+    py.click()
+
+    #5 find explore icon
+    count =0
+    #while(1):
+     #   count = count+1
+    reply = move("explore_imgs\explore_icon.png")
+    #if(reply == "found"):
+       # break
+    if(reply =="not_found"):
+        go_back()  #searched for both types of hangar images , if not found we either go back or go in city
+        move_in_city()
+        defogging(flag)
+        time.sleep(2)
+        #if(count>2):
+         #   move_in_city()
+          #  defogging()
+    #6 click on explore
+    if(reply == "found"):
+     time.sleep(1)
+     py.click()
+
+    #7  find 2nd explore icon
+    count =0
+    while(1):
+        count = count+1
+        reply = move("explore_imgs\explore_icon1.png")
+        if(reply == "found"):
+            break
+        if(reply =="not_found"):
+            go_back()  #searched for both types of hangar images , if not found we either go back or go in city
+            move_in_city()
+            defogging(flag)
+        #time.sleep(2)
+        #if(count>2):
+         #   move_in_city()
+          #  defogging()
+    #click on it
+    time.sleep(1) 
+    py.click()
+    time.sleep(1)
+    #find dispatch icon and click it
+    count =0 
+    while(1):
+        count = count+1
+        reply = move("explore_imgs\dispatch_icon.png")
+        if(reply == "found"):
+            break
+
+        #time.sleep(2)
+        if(reply == "not_found"):
+            move_in_city()
+            defogging(flag)
+    #click on it 
+    time.sleep(1)
+    py.click()
+    #move in city after dispatching 
+    move_in_city()
+
+def move_in_city():    #move back inside city
+    
+    reply = move("explore_imgs\city_icon.png")
+    if(reply == "found"):
+        time.sleep(0.5)
+        py.click()
+            
+    
+    #py.click()
+def go_back():
+    if (move("explore_imgs\go_back.png")=="found"):
+        time.sleep(0.5)
+        py.click()
+
+
+#while(1):
+ # defogging()
+
+
+
+
+
+
+

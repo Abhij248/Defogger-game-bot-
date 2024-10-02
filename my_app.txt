@@ -1,0 +1,37 @@
+import tkinter as tk
+from tkinter import messagebox
+from fog_bot import defogging
+import threading
+import sys
+
+def run_bot():
+    
+    bot_thread = threading.Thread(target=defogging(0))
+    bot_thread.start()
+
+def bot_thread():
+    print("Bot is running...")
+    defogging()
+    messagebox.showinfo("Info", "Bot has finished executing")
+
+def stop_bot():
+    print("Stop button clicked")
+    bot_thread = threading.Thread(target=defogging(1))
+    bot_thread.start()
+    app.quit()
+    # Gracefully close the Tkinter window
+
+print("Creating Tkinter app")
+app = tk.Tk()
+app.title("Bot GUI")
+app.geometry("400x300")
+
+print("Adding buttons")
+run_button = tk.Button(app, text="Run Bot", command=run_bot)
+run_button.pack(pady=20)
+
+stop_button = tk.Button(app, text="Stop Bot", command=stop_bot)
+stop_button.pack(pady=20)
+
+print("Starting Tkinter main loop")
+app.mainloop()
